@@ -2,9 +2,7 @@ package com.evgenyfedorchenko.examiner.controllers;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
 import com.evgenyfedorchenko.examiner.services.ExaminerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -18,8 +16,8 @@ public class ExamController {
         this.examinerService = examinerService;
     }
 
-    @GetMapping(path = "/")
-    private Collection<Question> getQuestions(int amount) {
+    @GetMapping(path = "/{amount}")
+    private Collection<Question> getQuestions(@PathVariable Integer amount) {
         return examinerService.getQuestions(amount);
     }
 

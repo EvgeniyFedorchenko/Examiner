@@ -4,13 +4,25 @@ import com.evgenyfedorchenko.examiner.domain.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
 
+    private final QuestionService questionService;
+
+    public ExaminerServiceImpl(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
     @Override
-    public Collection<Question> getQuestions(int amount) {
-        // Задача: создать коллекцию и заполнить её с помощью вызова getRandomQuestion у QuestionService случайными вопросами.
-        return null;
+    public Collection<Question> getQuestions(Integer amount) {
+
+        Set<Question> questionSet = new HashSet<>();
+        while (questionSet.size() != amount) {
+            questionSet.add(questionService.getRandomQuestion());
+        }
+        return questionSet;
     }
 }

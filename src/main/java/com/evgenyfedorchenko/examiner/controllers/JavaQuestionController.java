@@ -1,11 +1,9 @@
 package com.evgenyfedorchenko.examiner.controllers;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
+import com.evgenyfedorchenko.examiner.exceptions.ExaminerException;
 import com.evgenyfedorchenko.examiner.services.QuestionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -27,12 +25,17 @@ public class JavaQuestionController {
 
     @GetMapping(path = "/remove")
     public Question removeQuestion(@RequestParam(value = "question") String question,
-                                   @RequestParam(value = "answer", required = false) String answer) {
-        return questionService.remove(question, answer);
+                                   @RequestParam(value = "answer") String answer) {
+        return questionService.remove(new Question(question, answer));
     }
 
     @GetMapping(path = "/")
     public Collection<Question> getAllQuestions() {
         return questionService.getAll();
+    }
+
+    @ExceptionHandler(ExaminerException.class)
+    public String handleExceptionOfJavaQuestionController(ExaminerException exception) {
+        return exception.getUserMessage();
     }
 }
