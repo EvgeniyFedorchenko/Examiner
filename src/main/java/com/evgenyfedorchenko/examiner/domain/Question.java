@@ -1,5 +1,7 @@
 package com.evgenyfedorchenko.examiner.domain;
 
+import com.evgenyfedorchenko.examiner.exceptions.ObjectFieldsAreEqualException;
+
 import java.util.Objects;
 
 public class Question {
@@ -8,8 +10,13 @@ public class Question {
     private final String answer;
 
     public Question(String question, String answer) {
+        validate(question, answer);
         this.question = question;
         this.answer = answer;
+    }
+
+    private void validate(String question, String answer) {
+        if (question.equals(answer)) throw new ObjectFieldsAreEqualException("Object's fields can not be equal");
     }
 
     public String getQuestion() {

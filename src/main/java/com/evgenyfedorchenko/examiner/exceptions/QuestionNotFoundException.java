@@ -4,8 +4,11 @@ import com.evgenyfedorchenko.examiner.domain.Question;
 
 public class QuestionNotFoundException extends ExaminerException {
 
+    private final Question question;
+
     public QuestionNotFoundException(String message, Question question) {
-        super(message, question);
+        super(message);
+        this.question = question;
     }
 
     @Override
