@@ -8,12 +8,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class ExaminerServiceImpl implements ExaminerService {
+public class ExaminerServiceImpl<T> implements ExaminerService {
 
-    private final QuestionService questionService;
+    private final QuestionService<String> javaQuestionService;
+    private final QuestionService<Integer> mathQuestionService;
 
-    public ExaminerServiceImpl(QuestionService questionService) {
-        this.questionService = questionService;
+    public ExaminerServiceImpl(QuestionService<String> javaQuestionService,
+                               QuestionService<Integer> mathQuestionService) {
+        this.javaQuestionService = javaQuestionService;
+        this.mathQuestionService = mathQuestionService;
     }
 
     @Override
@@ -24,7 +27,8 @@ public class ExaminerServiceImpl implements ExaminerService {
             return questionSet;
         }
         while (questionSet.size() != amount) {
-            questionSet.add(questionService.getRandomQuestion());
+            questionSet.add(javaQuestionService.getRandomQuestion());
+            questionSet.add(mathQuestionService.getRandomQuestion());
         }
         return questionSet;
     }

@@ -3,29 +3,34 @@ package com.evgenyfedorchenko.examiner.controllers;
 import com.evgenyfedorchenko.examiner.domain.Question;
 import com.evgenyfedorchenko.examiner.exceptions.ExaminerException;
 import com.evgenyfedorchenko.examiner.services.QuestionService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = "/questions/java")
-public class JavaQuestionController {
+public class MathQuestionController {
 
-    private final QuestionService<String> questionService;
+//    @Qualifier("MathQuestionService")
+    private final QuestionService<Integer> questionService;
 
-    public JavaQuestionController(QuestionService<String> questionService) {
+    public MathQuestionController(QuestionService<Integer> questionService) {
         this.questionService = questionService;
     }
 
     @GetMapping(path = "/add")
     public Question addQuestion(@RequestParam(value = "question") String question,
-                                @RequestParam(value = "answer") String answer) {
+                                @RequestParam(value = "answer") Integer answer) {
+        int a = 123;
         return questionService.add(question, answer);
     }
 
     @GetMapping(path = "/remove")
     public Question removeQuestion(@RequestParam(value = "question") String question,
-                                   @RequestParam(value = "answer") String answer) {
+                                   @RequestParam(value = "answer") Integer answer) {
         return questionService.remove(new Question(question, answer));
     }
 

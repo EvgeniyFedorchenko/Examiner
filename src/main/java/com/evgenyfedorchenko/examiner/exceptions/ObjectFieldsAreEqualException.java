@@ -2,7 +2,6 @@ package com.evgenyfedorchenko.examiner.exceptions;
 
 public class ObjectFieldsAreEqualException extends ExaminerException {
 
-
     public ObjectFieldsAreEqualException(String message) {
         super(message);
     }

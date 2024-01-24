@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public interface QuestionService {
+public interface QuestionService<T> {
 
-    Question add(String question, String answer);
+    Question add(String question, T answer);
 
     Question add(Question question);
 
     Question remove(Question question);
 
-    Collection<Question> getAll();
+    Collection<Question> getAllQuestions();
 
     Question getRandomQuestion();
 }

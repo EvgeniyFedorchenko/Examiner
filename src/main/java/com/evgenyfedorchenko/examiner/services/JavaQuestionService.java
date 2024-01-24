@@ -1,19 +1,20 @@
 package com.evgenyfedorchenko.examiner.services;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
-import com.evgenyfedorchenko.examiner.exceptions.QuestionAlreadyAddedException;
-import com.evgenyfedorchenko.examiner.exceptions.QuestionNotFoundException;
+import com.evgenyfedorchenko.examiner.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
 @Service
-public class JavaQuestionService implements QuestionService {
+public class JavaQuestionService implements QuestionService<String> {
 
-    private final Set<Question> questions;
+    private final QuestionRepository questionRepository;
 
-    public JavaQuestionService(Set<Question> questions) {
-        this.questions = questions;
+    public JavaQuestionService(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
     }
 
     @Override
@@ -23,29 +24,26 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question add(Question question) {
-        if (questions.add(question)) {
-            return question;
-        }
-        throw new QuestionAlreadyAddedException("Question \"" + question + "\" already added in collection", question);
+        return questionRepository.add(question);
     }
 
     @Override
     public Question remove(Question question) {
-        if (questions.remove(question)) {
-            return question;
-        }
-        throw new QuestionNotFoundException("Question \"" + question + "\" isn't found in collection", question);
+        return questionRepository.remove(question);
     }
 
     @Override
-    public Collection<Question> getAll() {
-        return new HashSet<>(questions);
+    public Collection<Question> getAllQuestions() {
+        return questionRepository.getAllQuestions();
     }
 
     @Override
     public Question getRandomQuestion() {
+
+        Collection<Question> allQuestions = questionRepository.getAllQuestions();
         Random random = new Random();
-        int randomQuestionNumber = random.nextInt(questions.size());
-        return new ArrayList<>(questions).get(randomQuestionNumber);
+        int randomQuestionNumber = random.nextInt(allQuestions.size());
+
+        return new ArrayList<>(allQuestions).get(randomQuestionNumber);
     }
 }

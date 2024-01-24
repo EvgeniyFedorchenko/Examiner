@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class ExaminerServiceImplTest {
 
     @Mock
-    QuestionService questionServiceMock;
+    QuestionService<String> questionServiceMock;
     @InjectMocks
     ExaminerServiceImpl out;
 

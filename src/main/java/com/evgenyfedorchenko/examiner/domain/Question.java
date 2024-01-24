@@ -15,6 +15,12 @@ public class Question {
         this.answer = answer;
     }
 
+    public Question(String question, Integer answer) {
+        this.question = question;
+        this.answer = String.valueOf(answer);
+        validate(question, this.answer);
+    }
+
     private void validate(String question, String answer) {
         if (question.equals(answer)) throw new ObjectFieldsAreEqualException("Object's fields can not be equal");
     }
