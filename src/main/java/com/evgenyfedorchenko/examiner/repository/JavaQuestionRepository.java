@@ -3,8 +3,12 @@ package com.evgenyfedorchenko.examiner.repository;
 import com.evgenyfedorchenko.examiner.domain.Question;
 import com.evgenyfedorchenko.examiner.exceptions.QuestionAlreadyAddedException;
 import com.evgenyfedorchenko.examiner.exceptions.QuestionNotFoundException;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +21,23 @@ public class JavaQuestionRepository implements QuestionRepository {
     public JavaQuestionRepository(Set<Question> questions) {
         this.questions = questions;
     }
+
+    @PostConstruct
+    private void init() {
+        /*Пока работает не совсем правильно, какие строчки пропускат, но я это поправлю чуть позже*/
+        // TODO: 26.01.2024 Tests
+        try (BufferedReader br = new BufferedReader(new FileReader(
+                "src/main/resources/questions_and_answers_for_JavaQuestionRepository.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String answerText = br.readLine();
+                add(new Question(line, answerText));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public Question add(Question question) {
