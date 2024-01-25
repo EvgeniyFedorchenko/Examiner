@@ -38,9 +38,10 @@ class JavaQuestionRepositoryTest {
     public void should_exception_when_add_already_added_question() {
         // given
         setUnderTest.add(QUESTION_1);
+        Set<Question> setBeforeException = new HashSet<>(setUnderTest);
         // invoking and assertions
-        // TODO: 25.01.2024 Стоит ли проверить, что в исключительной ситуации вопрос реально не добавляется?
         assertThrows(QuestionAlreadyAddedException.class, () -> out.add(QUESTION_1));
+        assertEquals(setBeforeException, setUnderTest);
     }
 
     @Test

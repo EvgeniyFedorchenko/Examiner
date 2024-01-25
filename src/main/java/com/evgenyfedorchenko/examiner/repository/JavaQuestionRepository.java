@@ -23,9 +23,8 @@ public class JavaQuestionRepository implements QuestionRepository {
     }
 
     @PostConstruct
-    private void init() {
-        /*Пока работает не совсем правильно, какие строчки пропускат, но я это поправлю чуть позже*/
-        // TODO: 26.01.2024 Tests
+    void init() {
+        // Tests?
         try (BufferedReader br = new BufferedReader(new FileReader(
                 "src/main/resources/questions_and_answers_for_JavaQuestionRepository.txt"))) {
             String line;
