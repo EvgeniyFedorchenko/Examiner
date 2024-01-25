@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public interface QuestionService<T> {
+public interface QuestionService {
 
-    Question add(String question, T answer);
+    Question add(String question, String answer);
 
     Question add(Question question);
 
