@@ -3,32 +3,33 @@ package com.evgenyfedorchenko.examiner.services;
 import com.evgenyfedorchenko.examiner.domain.Question;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
-public class ExaminerServiceImpl<T> implements ExaminerService {
+public class ExaminerServiceImpl implements ExaminerService {
 
-    private final QuestionService<String> javaQuestionService;
-    private final QuestionService<Integer> mathQuestionService;
 
-    public ExaminerServiceImpl(QuestionService<String> javaQuestionService,
-                               QuestionService<Integer> mathQuestionService) {
-        this.javaQuestionService = javaQuestionService;
-        this.mathQuestionService = mathQuestionService;
+    private final List<QuestionService> questionServices;
+
+    public ExaminerServiceImpl(List<QuestionService> questionServices) {
+        this.questionServices = questionServices;
     }
+
 
     @Override
     public Collection<Question> getQuestions(Integer amount) {
 
         Set<Question> questionSet = new HashSet<>();
+        /* Так как часть вопросов генерируется на лету, нет необходимости проверять,
+           что вопросов запрошено не больше, чем есть в репозиториях */
         if (amount <= 0) {
             return questionSet;
         }
+        Random random = new Random();
         while (questionSet.size() != amount) {
-            questionSet.add(javaQuestionService.getRandomQuestion());
-            questionSet.add(mathQuestionService.getRandomQuestion());
+            questionSet.add(random.nextBoolean()
+                    ? questionServices.get(0).getRandomQuestion()
+                    : questionServices.get(1).getRandomQuestion());
         }
         return questionSet;
     }
