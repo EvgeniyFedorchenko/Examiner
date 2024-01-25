@@ -1,17 +1,16 @@
 package com.evgenyfedorchenko.examiner.services;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
-import org.springframework.http.HttpMethod;
+import com.evgenyfedorchenko.examiner.exceptions.NotAllowedException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.MethodNotAllowedException;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 
-@Service
-public class MathQuestionService implements QuestionService<Integer> {
+@Service("MathQuestionService")
+public class MathQuestionService implements QuestionService {
 
     private final Set<Question> mathQuestions;
 
@@ -20,31 +19,46 @@ public class MathQuestionService implements QuestionService<Integer> {
     }
 
     @Override
-    public Question add(String question, Integer answer) {
-        // TODO: 24.01.2024 Разобраться здесь
-        Collection<HttpMethod> collection = new HashSet<>();
-        throw new MethodNotAllowedException(HttpMethod.valueOf("lfjnal"), collection);
+    public Question add(String question, String answer) {
+        throw new NotAllowedException("This method is not allowed");
     }
 
     @Override
     public Question add(Question question) {
-//        throw new MethodNotAllowedException("ex mess");
-        return null;
+        throw new NotAllowedException("This method is not allowed");
     }
 
     @Override
     public Question remove(Question question) {
-        return null;
+        throw new NotAllowedException("This method is not allowed");
     }
 
     @Override
     public Collection<Question> getAllQuestions() {
-        return null;
+        throw new NotAllowedException("This method is not allowed");
     }
 
     @Override
     public Question getRandomQuestion() {
-        // Генерация вопросов на лету
-        return null;
+
+        Random random = new Random();
+
+        char operation = new char[]{'*', '/', '+', '-'}[random.nextInt(4)];
+        int firstOperand = random.nextInt(2001) - 1000;
+        int secondOperand;
+
+        do {
+            secondOperand = random.nextInt(2001) - 1000;
+        } while (secondOperand == 0 && operation == '/');
+
+        int answer = switch (operation) {
+            case '*' -> firstOperand * secondOperand;
+            case '/' -> firstOperand / secondOperand;
+            case '+' -> firstOperand + secondOperand;
+            default -> firstOperand - secondOperand;
+        };
+        String question = firstOperand + " " + operation + " " + secondOperand;
+
+        return new Question(question, String.valueOf(answer));
     }
 }
