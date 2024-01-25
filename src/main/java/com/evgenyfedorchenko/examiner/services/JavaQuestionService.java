@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
-@Service
-public class JavaQuestionService implements QuestionService<String> {
+@Service("JavaQuestionService")
+public class JavaQuestionService implements QuestionService {
 
     private final QuestionRepository questionRepository;
 

@@ -11,10 +11,6 @@ public class ObjectFieldsAreEqualException extends ExaminerException {
         return """
                 <h2>Oops!</h2>
                 <br>
-                The question text and the answer text that you gave cannot be equal:<br>
-                <b>%s</b><br>
-                with answer:<br>
-                <b>%s</b><br>
-                already added!""";
+                The question text and the answer text that you gave cannot be equal:""";
     }
 }

@@ -3,17 +3,18 @@ package com.evgenyfedorchenko.examiner.controllers;
 import com.evgenyfedorchenko.examiner.domain.Question;
 import com.evgenyfedorchenko.examiner.exceptions.ExaminerException;
 import com.evgenyfedorchenko.examiner.services.QuestionService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = "/questions/java")
+@RequestMapping(path = "/exam/java")
 public class JavaQuestionController {
 
-    private final QuestionService<String> questionService;
+    private final QuestionService questionService;
 
-    public JavaQuestionController(QuestionService<String> questionService) {
+    public JavaQuestionController(@Qualifier("JavaQuestionService") QuestionService questionService) {
         this.questionService = questionService;
     }
 
