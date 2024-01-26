@@ -75,14 +75,6 @@ public class JavaQuestionServiceTest {
         // assertion
         assertEquals(QUESTION_1, actualQuestion);
 
-
-        /*Set<Question> expectedSet = new HashSet<>(TEST_COLLECTION_OF_4_QUESTIONS);
-        setUnderTest.addAll(TEST_COLLECTION_OF_5_QUESTIONS);
-        // invoking
-        Question actualQuestion = out.remove(QUESTION_5);
-        // assertions
-        assertEquals(expectedSet, setUnderTest);
-        assertEquals(QUESTION_5, actualQuestion);*/
     }
 
     @Test

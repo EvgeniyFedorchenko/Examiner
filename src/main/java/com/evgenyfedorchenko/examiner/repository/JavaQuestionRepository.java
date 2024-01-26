@@ -23,7 +23,7 @@ public class JavaQuestionRepository implements QuestionRepository {
     }
 
     @PostConstruct
-    void init() {
+    public void init() {
         // Tests?
         try (BufferedReader br = new BufferedReader(new FileReader(
                 "src/main/resources/questions_and_answers_for_JavaQuestionRepository.txt"))) {

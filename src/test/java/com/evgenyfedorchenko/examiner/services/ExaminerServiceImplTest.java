@@ -25,7 +25,7 @@ public class ExaminerServiceImplTest {
 
     private final QuestionService javaQuestionServiceMock = mock(JavaQuestionService.class);
     private final QuestionService mathQuestionServiceMock = mock(MathQuestionService.class);
-    ExaminerServiceImpl out = new ExaminerServiceImpl(
+    private final ExaminerServiceImpl out = new ExaminerServiceImpl(
             List.of(javaQuestionServiceMock, mathQuestionServiceMock));
 
     public static Stream<Arguments> provide_params_for_nonpositive_amount_questions() {
