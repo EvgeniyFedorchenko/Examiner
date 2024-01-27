@@ -1,10 +1,10 @@
 package com.evgenyfedorchenko.examiner.services;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
+import com.evgenyfedorchenko.examiner.exceptions.CollectionQuestionsIsEmptyException;
 import com.evgenyfedorchenko.examiner.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
@@ -12,6 +12,7 @@ import java.util.Random;
 public class JavaQuestionService implements QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final Random random = new Random();
 
     public JavaQuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
@@ -41,9 +42,14 @@ public class JavaQuestionService implements QuestionService {
     public Question getRandomQuestion() {
 
         Collection<Question> allQuestions = questionRepository.getAllQuestions();
-        Random random = new Random();
+        if (allQuestions.isEmpty()) {
+            throw new CollectionQuestionsIsEmptyException("Collection of questions isn't found");
+        }
         int randomQuestionNumber = random.nextInt(allQuestions.size());
+        return allQuestions.stream()
+                .skip(randomQuestionNumber)
+                .findFirst()
+                .orElse(null);
 
-        return new ArrayList<>(allQuestions).get(randomQuestionNumber);
     }
 }
