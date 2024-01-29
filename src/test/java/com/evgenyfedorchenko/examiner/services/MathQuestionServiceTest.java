@@ -6,9 +6,6 @@ import com.evgenyfedorchenko.examiner.exceptions.NotAllowedException;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static com.evgenyfedorchenko.examiner.Constants.MATH_QUESTION_1;
 import static com.evgenyfedorchenko.examiner.Constants.QUESTION_1;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MathQuestionServiceTest {
 
-    private final Set<Question> questions = new HashSet<>();
-    private final MathQuestionService out = new MathQuestionService(questions);
+    private final MathQuestionService out = new MathQuestionService();
+
     @Test
     void should_exception_when_refer_to_add_method_with_question_param() {
         assertThrows(NotAllowedException.class, () -> out.add(QUESTION_1));
@@ -41,10 +38,9 @@ class MathQuestionServiceTest {
 
     @RepeatedTest(100)
     void getRandomQuestion() {
-        // Нейминг в задании конечно не самый удачный, что Question - объект, а String question - его же поле
         // invoking
-        Question expectedQuestion = out.getRandomQuestion(); // Объект типа Question
-        String expectedQuestionText = expectedQuestion.getQuestion(); // Его поле с самим собственно текстом вопроса
+        Question expectedQuestion = out.getRandomQuestion();
+        String expectedQuestionText = expectedQuestion.getQuestion();
         // assertions
         assertTrue(expectedQuestionText.matches("-?\\d+\\s[+*/-]\\s-?\\d+"));
     }

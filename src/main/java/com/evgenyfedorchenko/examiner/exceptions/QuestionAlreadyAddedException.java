@@ -2,7 +2,7 @@ package com.evgenyfedorchenko.examiner.exceptions;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
 
-public class QuestionAlreadyAddedException extends ExaminerException {
+public class QuestionAlreadyAddedException extends ExaminerBasicException {
 
     private final Question question;
 

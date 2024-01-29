@@ -1,6 +1,6 @@
 package com.evgenyfedorchenko.examiner.exceptions;
 
-public class CollectionQuestionsIsEmptyException extends ExaminerException {
+public class CollectionQuestionsIsEmptyException extends ExaminerBasicException {
 
     public CollectionQuestionsIsEmptyException(String message) {
         super(message);

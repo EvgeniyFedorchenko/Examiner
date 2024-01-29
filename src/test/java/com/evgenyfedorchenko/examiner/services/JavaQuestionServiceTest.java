@@ -1,6 +1,7 @@
 package com.evgenyfedorchenko.examiner.services;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
+import com.evgenyfedorchenko.examiner.exceptions.CollectionQuestionsIsEmptyException;
 import com.evgenyfedorchenko.examiner.exceptions.QuestionAlreadyAddedException;
 import com.evgenyfedorchenko.examiner.exceptions.QuestionNotFoundException;
 import com.evgenyfedorchenko.examiner.repository.JavaQuestionRepository;
@@ -11,6 +12,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -33,8 +35,6 @@ public class JavaQuestionServiceTest {
         Question actualQuestion = out.add(QUESTION_1);
         // assertions
         assertEquals(QUESTION_1, actualQuestion);
-
-
     }
 
     @Test
@@ -74,7 +74,6 @@ public class JavaQuestionServiceTest {
         Question actualQuestion = out.remove(QUESTION_1);
         // assertion
         assertEquals(QUESTION_1, actualQuestion);
-
     }
 
     @Test
@@ -105,11 +104,19 @@ public class JavaQuestionServiceTest {
     }
 
     @RepeatedTest(100)
-    public void get_random_question_test() {
+    public void get_random_question__positive_test() {
         // given
         when(javaQuestionRepositoryMock.getAllQuestions()).thenReturn(TEST_COLLECTION_OF_5_QUESTIONS);
         // invoking and assertions
         assertTrue(TEST_COLLECTION_OF_5_QUESTIONS.contains(out.getRandomQuestion()));
+    }
+
+    @Test
+    public void get_random_question_negative_test() {
+        // given
+        when(out.getAllQuestions()).thenReturn(new HashSet<>());
+        // invoking and assertion
+        assertThrows(CollectionQuestionsIsEmptyException.class, out::getRandomQuestion);
     }
 }
 

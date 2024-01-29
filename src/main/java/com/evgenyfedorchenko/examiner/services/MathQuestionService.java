@@ -6,17 +6,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Random;
-import java.util.Set;
 
 
 @Service("MathQuestionService")
 public class MathQuestionService implements QuestionService {
 
-    private final Set<Question> mathQuestions;
-
-    public MathQuestionService(Set<Question> mathQuestions) {
-        this.mathQuestions = mathQuestions;
-    }
+    private final Random random = new Random();
 
     @Override
     public Question add(String question, String answer) {
@@ -40,8 +35,6 @@ public class MathQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
-
-        Random random = new Random();
 
         char operation = new char[]{'*', '/', '+', '-'}[random.nextInt(4)];
         int firstOperand = random.nextInt(2001) - 1000;

@@ -6,35 +6,34 @@ import com.evgenyfedorchenko.examiner.exceptions.QuestionNotFoundException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.IntStream;
 
 @Repository
 public class JavaQuestionRepository implements QuestionRepository {
 
     private final Set<Question> questions;
 
-    public JavaQuestionRepository(Set<Question> questions) {
-        this.questions = questions;
+    public JavaQuestionRepository() {
+        this.questions = new LinkedHashSet<>();
     }
 
     @PostConstruct
     public void init() {
-        // Tests?
-        try (BufferedReader br = new BufferedReader(new FileReader(
-                "src/main/resources/questions_and_answers_for_JavaQuestionRepository.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String answerText = br.readLine();
-                add(new Question(line, answerText));
-            }
+        String fileName = "src/main/resources/questions_and_answers_for_JavaQuestionRepository.txt";
+        final List<String> lines = new ArrayList<>();
+        try {
+            lines.addAll(Files.readAllLines(Paths.get(fileName)));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        IntStream.range(0, lines.size() - 1)
+                .filter(i -> i % 2 == 0)
+                .mapToObj(i -> new Question(lines.get(i), lines.get(i + 1)))
+                .forEach(questions::add);
     }
 
 

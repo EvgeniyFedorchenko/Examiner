@@ -32,7 +32,7 @@ public class MathQuestionController {
         return questionService.remove(new Question(question, answer));
     }
 
-    @GetMapping(path = "/getAll")   // METHOD_NOT_ALLOWED
+    @GetMapping()   // METHOD_NOT_ALLOWED
     public Collection<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }

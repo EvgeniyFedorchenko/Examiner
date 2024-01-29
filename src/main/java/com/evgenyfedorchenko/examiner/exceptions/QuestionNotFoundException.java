@@ -2,7 +2,7 @@ package com.evgenyfedorchenko.examiner.exceptions;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
 
-public class QuestionNotFoundException extends ExaminerException {
+public class QuestionNotFoundException extends ExaminerBasicException {
 
     private final Question question;
 

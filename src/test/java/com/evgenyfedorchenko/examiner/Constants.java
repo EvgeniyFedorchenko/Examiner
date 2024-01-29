@@ -32,6 +32,9 @@ public class Constants {
     public static final Collection<Question> TEST_COLLECTION_OF_4_QUESTIONS = new HashSet<>(
             Set.of(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4));
 
+    public static final Collection<Question> TEST_COLLECTION_OF_3_QUESTIONS =  new HashSet<>(
+            Set.of(QUESTION_1, QUESTION_2, QUESTION_3));
+
     public static final Collection<Question> TEST_COLLECTION_OF_ZERO_QUESTIONS = new HashSet<>();
 
 }

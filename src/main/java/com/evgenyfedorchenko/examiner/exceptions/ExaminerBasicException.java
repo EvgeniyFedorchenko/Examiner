@@ -1,8 +1,8 @@
 package com.evgenyfedorchenko.examiner.exceptions;
 
-public abstract class ExaminerException extends RuntimeException {
+public abstract class ExaminerBasicException extends RuntimeException {
 
-    public ExaminerException(String message) {
+    public ExaminerBasicException(String message) {
         super(message);
     }
 

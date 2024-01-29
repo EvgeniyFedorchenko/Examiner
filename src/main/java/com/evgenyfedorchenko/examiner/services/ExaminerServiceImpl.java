@@ -10,6 +10,7 @@ public class ExaminerServiceImpl implements ExaminerService {
 
 
     private final List<QuestionService> questionServices;
+    private final Random random = new Random();
 
     public ExaminerServiceImpl(List<QuestionService> questionServices) {
         this.questionServices = questionServices;
@@ -25,7 +26,6 @@ public class ExaminerServiceImpl implements ExaminerService {
         if (amount <= 0) {
             return questionSet;
         }
-        Random random = new Random();
         while (questionSet.size() != amount) {
             questionSet.add(random.nextBoolean()
                     ? questionServices.get(0).getRandomQuestion()

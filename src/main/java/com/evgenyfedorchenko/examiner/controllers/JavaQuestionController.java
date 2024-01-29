@@ -1,7 +1,7 @@
 package com.evgenyfedorchenko.examiner.controllers;
 
 import com.evgenyfedorchenko.examiner.domain.Question;
-import com.evgenyfedorchenko.examiner.exceptions.ExaminerException;
+import com.evgenyfedorchenko.examiner.exceptions.ExaminerBasicException;
 import com.evgenyfedorchenko.examiner.services.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +30,13 @@ public class JavaQuestionController {
         return questionService.remove(new Question(question, answer));
     }
 
-    @GetMapping(path = "/getAll")
+    @GetMapping()
     public Collection<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }
 
-    @ExceptionHandler(ExaminerException.class)
-    public String handleExceptionOfJavaQuestionController(ExaminerException exception) {
+    @ExceptionHandler(ExaminerBasicException.class)
+    public String handleExceptionOfJavaQuestionController(ExaminerBasicException exception) {
         return exception.getUserMessage();
     }
 }

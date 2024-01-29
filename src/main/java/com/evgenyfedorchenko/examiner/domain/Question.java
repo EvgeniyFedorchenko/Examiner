@@ -16,7 +16,9 @@ public class Question {
     }
 
     private void validate(String question, String answer) {
-        if (question.equals(answer)) throw new ObjectFieldsAreEqualException("Object's fields can not be equal");
+        if (question.equals(answer)) {
+            throw new ObjectFieldsAreEqualException("Object's fields can not be equal");
+        }
     }
 
     public String getQuestion() {
